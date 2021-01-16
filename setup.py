@@ -6,6 +6,8 @@ with open("readme.md", "r") as f:
 dev_req = [
     "black==20.8b1",
     "pylint==2.6.0",
+    "sphinx==3.4.3",
+    "sphinx-rtd-theme==0.5.1",
 ]
 
 test_req = ["pytest==5.4.3", "pytest-asyncio==0.14.0", "pytest-cov==2.10.1"]
@@ -18,14 +20,17 @@ setuptools.setup(
     description="A Python tool for programatically defining structures",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="",
+    url="https://github.com/stephen1000/shapepy",
     package_dir={"": "src"},
     packages=setuptools.find_packages("src"),
     entry_points={"console_scripts": ["shapepy = shapepy.cli:handle"]},
     install_requires=[
         "python-dotenv==0.15.0",
     ],
-    extras_require={"dev": test_req + dev_req, "test": test_req,},
+    extras_require={
+        "dev": test_req + dev_req,
+        "test": test_req,
+    },
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache License",

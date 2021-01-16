@@ -16,6 +16,7 @@ def get_args():
 def handle():
     """ Execute the cli function """
     args = get_args()
+    args
 
 
 if __name__ == "__main__":

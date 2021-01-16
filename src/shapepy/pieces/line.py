@@ -1,40 +1,36 @@
-""" Lines in 3D space """
+""" A collection of points with segments between each """
+from typing import List, Union
 
-from shapepy.pieces import Point
-from typing import List, Optional
+from shapepy.pieces import Point, Segment
 
 
 class Line(object):
-    """ A pair of points """
+    """ A collection of points with segments between each """
 
-    def __init__(self, start: Point, end: Point):
-        self.start = start
-        self.end = end
+    def __init__(self, points:List[Point]):
+        self.points = points
 
-    def trace(
-        self,
-        number: Optional[int] = 10,
-        interval: Optional[float] = None,
-        inclusive: bool = True,
-    ) -> List[Point]:
-        """ Return points between ``Line.start`` and ``Line.end``. Default behavior is to return 11 total points, ``self.start``,
-        ``self.end``, and 9 points evenly distributed in-between the two (e.g. for points (0, 0, 0) and (20,20,20) the 
-        return would be [(0,0,0), (2,2,2), (4, 4, 4), (6, 6, 6), (8, 8, 8), (10, 10, 10), (12,12,12), (14,14,14), (16,16,16),
-        (18,18,18), (20,20,20)])
+    @property
+    def segments(self):
+        """ A list of segments between each point in the line """
+        for index in range(len(self.points)):
+            yield Segment(self.points[index], self.points[index+1])
 
-        :param number: Number of points to return. Default 10. 
+    def __iter__(self):
+        """ Loop over the segments of the line """
+        for segment in self.segments:
+            yield segment
+
+    def append(self, point:Point):
+        """ Add a point to the end of the Line
+
+        :param point: Point to append to the Line
+        :type point: shapepy.pieces.point.Point
         """
-        points: List[Point] = [self.start]
-        if number and interval:
-            points
-        elif number:
-            points
-        elif interval:
-            points
-        else:
-            raise ValueError("One of `number` or `interval` must be specified")
+        self.points.append(point)
 
-        if inclusive:
-            points.append(self.end)
-        return points
+    def insert(self, pos:int, point:Point):
+        """ Insert ``point`` into the Line at position ``pos``"""
+        self.points.insert(pos, point)
+
 
