@@ -17,5 +17,6 @@ def handle():
     """ Execute the cli function """
     args = get_args()
 
+
 if __name__ == "__main__":
     handle()
